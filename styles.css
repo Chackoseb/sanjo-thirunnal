@@ -1,0 +1,34 @@
+body {
+    font-family: 'Gayathri', 'Noto Sans Malayalam', sans-serif;
+}
+
+.festive-bg {
+    background: linear-gradient(135deg, #ffe3e3 0%, #fffbe7 100%);
+    min-height: 100vh;
+}
+
+.festive-title {
+    font-family: 'Gayathri', 'Noto Sans Malayalam', sans-serif;
+    text-shadow: 2px 2px 8px #ffb703, 0 0 10px #fff;
+}
+
+.patron-img {
+    max-height: 120px;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.editorial {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(255, 183, 3, 0.08);
+}
+
+.confetti {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+}

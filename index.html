@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>തിരുന്നാൾ 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Gayathri:wght@100;400;700&family=Noto+Sans+Malayalam:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="festive-bg">
+    <canvas class="confetti" id="confetti-canvas"></canvas>
+    <header class="py-6 flex flex-col items-center">
+        <div class="flex flex-col items-center">
+            <h1 class="festive-title text-4xl md:text-6xl font-bold text-yellow-700 mb-2 text-center">വി. യൗസേപ്പിതാവിന്റെയും, വി. സെബസ്ത്യാനോസിന്റെയും, വി. ഗീവർഗ്ഗീസിന്റെയും സംയുക്ത തിരുനാൾ</h1>
+            <div class="flex flex-row justify-center gap-6 mt-4">
+                <img src="patrons/joseph.png" alt="St Joseph" class="patron-img">
+                <img src="patrons/george.png" alt="St George" class="patron-img">
+                <img src="patrons/sebastian.png" alt="St Sebastian" class="patron-img">
+            </div>
+        </div>
+    </header>
+    <section class="max-w-2xl mx-auto my-8 px-4">
+        <div class="editorial p-6">
+            <h2 class="text-2xl font-bold text-pink-700 mb-2">വികാരിയുടെ സന്ദേശം</h2>
+            <p id="editorial-text" class="text-lg text-gray-800 leading-relaxed">വികാരിയുടെ സന്ദേശം ഇവിടെ പ്രദർശിപ്പിക്കും...</p>
+        </div>
+    </section>
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <h2 class="text-2xl font-bold text-center text-rose-700 mb-6">തിരുനാൾ പ്രസുദേന്തിമാർ</h2>
+        <div class="grid grid-cols-3 lg:grid-cols-4 gap-6" id="hosts-container">
+            <!-- Host cards will be dynamically inserted here -->
+        </div>
+    </main>
+    <script src="main.js"></script>
+</body>
+</html>

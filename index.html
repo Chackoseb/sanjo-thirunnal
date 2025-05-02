@@ -120,6 +120,26 @@
             </div>
         </section>
 
+        <!-- Highlights Carousel Section -->
+        <section class="max-w-2xl mx-auto my-8">
+            <h2 class="text-2xl md:text-2xl font-bold text-center text-red-800 mb-4">Highlights</h2>
+            <div class="relative">
+                <div class="absolute left-0 top-0 mt-2 ml-2 z-20">
+                    <span class="text-xs text-gray-600 bg-white bg-opacity-80 px-2 py-1 rounded shadow">02/05/2025</span>
+                </div>
+                <button id="highlights-carousel-prev" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 rounded-full shadow p-2 z-10 hover:bg-blue-100" aria-label="Previous">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <div id="highlights-carousel-track" class="overflow-hidden flex justify-center items-center">
+                    <img src="updates/flag.webp" alt="Flag" class="highlights-carousel-img rounded-lg shadow aspect-[3/2] w-full md:w-[420px] lg:w-[480px] object-cover" />
+                    <img src="updates/lights.webp" alt="Lights" class="highlights-carousel-img rounded-lg shadow aspect-[3/2] w-full md:w-[420px] lg:w-[480px] object-cover" />
+                </div>
+                <button id="highlights-carousel-next" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 rounded-full shadow p-2 z-10 hover:bg-blue-100" aria-label="Next">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
+            </div>
+        </section>
+
         <main class="max-w-7xl mx-auto py-8">
             <h2 class="text-2xl font-bold text-center text-rose-700 mb-6">തിരുനാൾ പ്രസുദേന്തിമാർ</h2>
             <div class="grid grid-cols-3 lg:grid-cols-4 gap-6" id="hosts-container">

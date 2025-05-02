@@ -401,3 +401,41 @@ function renderHosts() {
   updateCarousel();
   setInterval(next, 5000);
 })();
+
+// Highlights Carousel logic (autoscroll + manual)
+(function() {
+  const images = Array.from(document.querySelectorAll('#highlights-carousel-track .highlights-carousel-img'));
+  if (!images.length) return;
+  let current = 0;
+  let timer = null;
+  function updateCarousel() {
+    images.forEach((img, idx) => {
+      img.style.display = idx === current ? 'block' : 'none';
+    });
+  }
+  function next() {
+    current = (current + 1) % images.length;
+    updateCarousel();
+  }
+  function prev() {
+    current = (current - 1 + images.length) % images.length;
+    updateCarousel();
+  }
+  function resetTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(() => {
+      next();
+    }, 5000);
+  }
+  document.getElementById('highlights-carousel-prev').addEventListener('click', () => {
+    prev();
+    resetTimer();
+  });
+  document.getElementById('highlights-carousel-next').addEventListener('click', () => {
+    next();
+    resetTimer();
+  });
+  // Initialize
+  updateCarousel();
+  resetTimer();
+})();

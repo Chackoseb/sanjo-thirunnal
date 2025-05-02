@@ -320,14 +320,17 @@ const hosts = hostNames.map((name, idx) => ({
 
 // Function to create a host card
 function createHostCard(host) {
-  return `
-        <div class="host-card">
-            <div class="w-full aspect-square bg-gradient-to-br from-yellow-100 to-pink-100 flex items-center justify-center">
-                <img src="${host.image}" 
+  // If this is image 143, wrap in a link
+  const isSpecial = host.id === 143;
+  const imageTag = `<img src="${host.image}" 
                      alt="${host.name}" 
                      class="w-full h-full object-cover"
                      loading="lazy"
-                     onerror="this.onerror=null; this.src='images/default.webp'">
+                     onerror="this.onerror=null; this.src='images/default.webp'">`;
+  return `
+        <div class="host-card">
+            <div class="w-full aspect-square bg-gradient-to-br from-yellow-100 to-pink-100 flex items-center justify-center">
+                ${isSpecial ? `<a href='https://www.instagram.com/delvinjose5?igsh=ODQ0cmwzanFuaHJs' target='_blank' rel='noopener'>${imageTag}</a>` : imageTag}
             </div>
             <div class="p-4">
                 <h3 class="host-name font-semibold text-gray-800">${host.name}</h3>

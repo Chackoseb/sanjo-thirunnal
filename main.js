@@ -445,7 +445,8 @@ function createHostCard(host) {
                 <img src="${host.image}" 
                      alt="${host.name}" 
                      class="w-full h-full object-cover"
-                     loading="lazy">
+                     loading="lazy"
+                     onerror="this.onerror=null; this.src='images/default.webp'">
             </div>
             <div class="p-4">
                 <h3 class="host-name font-semibold text-gray-800">${host.name}</h3>

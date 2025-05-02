@@ -24,32 +24,18 @@
             <span>🌟</span>
         </div>
     </div>
-    <div class="flex justify-end items-center w-full px-4 py-2" style="position:relative;z-index:60;">
-        <button id="confetti-toggle" class="bg-white bg-opacity-80 text-pink-700 font-bold rounded-full px-4 py-1 shadow hover:bg-yellow-100 transition text-sm flex items-center gap-2" aria-pressed="false">
-            <span id="confetti-toggle-icon">🎉</span>
-            <span id="confetti-toggle-text"></span>
-        </button>
-    </div>
+    <!-- Confetti button moved into image container below -->
     <canvas class="confetti" id="confetti-canvas"></canvas>
     
-    <div class="container mx-auto px-4">
-        <header class="py-6">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <!-- Left side - St. Joseph -->
-                <div class="w-full md:w-1/4 flex justify-center md:justify-start">
-                    <img src="patrons/joseph.png" alt="St Joseph" class="patron-img">
-                </div>
-                
-                <!-- Center - Title -->
-                <div class="w-full md:w-2/4">
-                    <h1 class="festive-title text-3xl md:text-5xl font-bold text-yellow-700 text-center">വി. യൗസേപ്പിതാവിന്റെയും,<br> വി. സെബസ്ത്യാനോസിന്റെയും,<br> വി. ഗീവർഗ്ഗീസിന്റെയും സംയുക്ത തിരുനാൾ</h1>
-                </div>
-                
-                <!-- Right side - Other two saints -->
-                <div class="w-full md:w-1/4 flex justify-center md:justify-end gap-4">
-                    <img src="patrons/george.png" alt="St George" class="patron-img">
-                    <img src="patrons/sebastian.png" alt="St Sebastian" class="patron-img">
-                </div>
+    <div class="container mx-auto">
+        <header class="">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative">
+                <!-- Confetti button absolutely positioned in top right of image -->
+                <button id="confetti-toggle" class="absolute top-2 right-2 text-2xl focus:outline-none z-20 bg-transparent border-none p-0 m-0" aria-pressed="false" style="background:none;box-shadow:none;border:none;">
+                    <span id="confetti-toggle-icon">🎉</span>
+                    <span id="confetti-toggle-text"></span>
+                </button>
+                <img src="events/front.webp" alt="" class="w-full" />
             </div>
         </header>
         <!-- Festive Umbrella Divider -->
@@ -86,7 +72,7 @@
         </div>
         <section class="max-w-2xl mx-auto my-8">
             <div class="editorial p-6">
-                <h2 class="text-2xl font-bold text-pink-700 mb-2">വികാരിയച്ചന്റെ സന്ദേശം</h2>
+                <!-- <h2 class="text-2xl font-bold text-pink-700 mb-2">വികാരിയച്ചന്റെ സന്ദേശം</h2> -->
                 <p id="editorial-text" class="text-lg text-gray-800 leading-relaxed">വികാരിയച്ചൻ്റെ സന്ദേശം ഇവിടെ പ്രദർശിപ്പിക്കും...</p>
             </div>
         </section>

@@ -369,3 +369,22 @@ function renderHosts() {
   updateCarousel();
   resetTimer();
 })();
+
+// Simple carousel logic for Kalaaparupaadikal section
+(function() {
+  const images = Array.from(document.querySelectorAll('#kala-carousel-track .kala-carousel-img'));
+  if (!images.length) return;
+  let current = 0;
+  function updateCarousel() {
+    images.forEach((img, idx) => {
+      img.style.display = idx === current ? 'block' : 'none';
+    });
+  }
+  function next() {
+    current = (current + 1) % images.length;
+    updateCarousel();
+  }
+  // Initialize
+  updateCarousel();
+  setInterval(next, 5000);
+})();

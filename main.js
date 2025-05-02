@@ -86,7 +86,7 @@ function stopConfetti() {
 
 // Editorial text (can be loaded from a file or API)
 const editorialText = `
-"മനുഷ്യർ നിങ്ങളുടെ സത്പ്രവർത്തികൾ കണ്ട് സ്വർഗ്ഗസ്ഥനായ നിങ്ങളുടെ പിതാവിനെ മഹത്വപ്പെടുത്തേണ്ടതിന് നിങ്ങളുടെ വെളിച്ചം അവരുടെ മുമ്പിൽ പ്രകാശിക്കട്ടെ.” (മത്താ. 5:16)
+"മനുഷ്യർ നിങ്ങളുടെ സത്പ്രവർത്തികൾ കണ്ട് സ്വർഗ്ഗസ്ഥനായ നിങ്ങളുടെ പിതാവിനെ മഹത്വപ്പെടുത്തേണ്ടതിന് നിങ്ങളുടെ വെളിച്ചം അവരുടെ മുമ്പിൽ പ്രകാശിക്കട്ടെ.” <br>(മത്താ. 5:16)
 
 2025 ൽ കാലം ചെയ്‌ത ഫ്രാൻസിസ് മാർപാപ്പ പ്രത്യാശയുടെ തീർത്ഥാടകർ എന്ന ആപ്‌തവാക്യത്തോടെ,
 മഹാജൂബിലിയായി പ്രഖ്യാപിച്ചിരിക്കുന്ന ഈ സാഹചര്യത്തിൽ നാളത്തെ വാഗ്‌ദാനങ്ങളായ 173 യുവജനങ്ങൾ ഒരു
@@ -99,8 +99,18 @@ const editorialText = `
 `;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Set editorial text
-  document.getElementById("editorial-text").innerText = editorialText;
+  // Split editorialText into paragraphs
+  const paragraphs = editorialText.trim().split(/\n\s*\n/).filter(Boolean);
+  // First para to left of image
+  const topRow = document.getElementById("editorial-top-row");
+  if (topRow && paragraphs.length) {
+    topRow.querySelector(".flex-1").innerHTML = `<p>${paragraphs[0]}</p>`;
+  }
+  // Rest below
+  const restDiv = document.getElementById("editorial-rest");
+  if (restDiv) {
+    restDiv.innerHTML = paragraphs.slice(1).map(p => `<p class='mb-4'>${p}</p>`).join("");
+  }
   // Confetti toggle button logic
   const confettiBtn = document.getElementById("confetti-toggle");
   const confettiBtnText = document.getElementById("confetti-toggle-text");

@@ -1,5 +1,11 @@
 // Confetti animation (lightweight, no external libs)
+let confettiAnimationId = null;
+let confettiResizeHandler = null;
+let confettiActive = false;
+
 function startConfetti() {
+  if (confettiActive) return;
+  confettiActive = true;
   const canvas = document.getElementById("confetti-canvas");
   const ctx = canvas.getContext("2d");
   let W = window.innerWidth,
@@ -47,16 +53,35 @@ function startConfetti() {
     });
   }
   function animate() {
+    if (!confettiActive) return;
     draw();
-    requestAnimationFrame(animate);
+    confettiAnimationId = requestAnimationFrame(animate);
   }
   animate();
-  window.addEventListener("resize", () => {
+  confettiResizeHandler = () => {
     W = window.innerWidth;
     H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
-  });
+  };
+  window.addEventListener("resize", confettiResizeHandler);
+}
+
+function stopConfetti() {
+  confettiActive = false;
+  if (confettiAnimationId) {
+    cancelAnimationFrame(confettiAnimationId);
+    confettiAnimationId = null;
+  }
+  const canvas = document.getElementById("confetti-canvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  if (confettiResizeHandler) {
+    window.removeEventListener("resize", confettiResizeHandler);
+    confettiResizeHandler = null;
+  }
 }
 
 // Editorial text (can be loaded from a file or API)
@@ -76,183 +101,29 @@ const editorialText = `
 document.addEventListener("DOMContentLoaded", () => {
   // Set editorial text
   document.getElementById("editorial-text").innerText = editorialText;
-  // Start confetti
-  startConfetti();
+  // Confetti toggle button logic
+  const confettiBtn = document.getElementById("confetti-toggle");
+  const confettiBtnText = document.getElementById("confetti-toggle-text");
+  const confettiBtnIcon = document.getElementById("confetti-toggle-icon");
+  confettiBtn.addEventListener("click", () => {
+    if (confettiActive) {
+      stopConfetti();
+      confettiBtnText.textContent = "";
+      confettiBtnIcon.textContent = "🎉";
+      confettiBtn.setAttribute("aria-pressed", "false");
+    } else {
+      startConfetti();
+      confettiBtnText.textContent = "";
+      confettiBtnIcon.textContent = "🛑";
+      confettiBtn.setAttribute("aria-pressed", "true");
+    }
+  });
   // Render hosts
   renderHosts();
 });
 
 // List of host names
 const hostNames = [
-  // "വെമ്പിലാൻ ജോസ് സെറീന",
-  // "വെമ്പിലാൻ സിംസൺ അഞ്ജലി",
-  // "ഇയ്യനൻ ജിമ്മി ജെനിറ്റ",
-  // "കൂനമ്മാവ് ഷാജു ദിയ",
-  // "വെമ്പിലാൻ റപ്പായി ഡോൺവിൻ",
-  // "വെമ്പിലാൻ റപ്പായി ആൽബിൻ",
-  // "വെമ്പിലാൻ ജോബി നിവ",
-  // "ഫുല്ലേലി ഡേവിസ് ജെസ്വിൻ",
-  // "ഫുല്ലേലി ജെസ‌്വിൻ അഞ്ജൽ",
-  // "ഫുല്ലേലി ബാബു ലിബിൻ",
-  // "ഫുല്ലേലി ബാബു ബിൽവിൻ",
-  // "ഫുല്ലേലി ലിബിൻ ലിമ",
-  // "കണ്ണമ്പുഴ ഷിന്റോ അയന",
-  // "കണ്ണമ്പുഴ ആന്റു എയ്ഞ്ചൽമരിയ",
-  // "കരേടൻ ടിജോ അനിറ്റ",
-  // "തളിയൻ തോമസ് എബി",
-  // "തളിയൻ തോമസ് എമിലിൻ",
-  // "വിതയത്തിൽ ആന്റു ആശിഷ്",
-  // "വിതയത്തിൽ ആന്റു അൻഷ",
-  // "കാരേടൻ വർഗീസ് ജോസഫ്",
-  // "ഫുല്ലേലി ജോണി ജോസിയ",
-  // "പുല്ലേലി ജോണി റോസ്‌മിൻ",
-  // "അമ്പൂക്കൻ ജോൺസൺ സിൽന",
-  // "ഫുല്ലേലി ഡാനിയേൽ അനിറ്റ",
-  // "ഫുല്ലേലി തോംസൺ പ്രിൻസി",
-  // "ഫുല്ലേലി ജോണി ജോർഡിൻ",
-  // "മണ്ടി ജോബി ജെറിൽ",
-  // "മണ്ടി ജോബി അലീന",
-  // "പടയാട്ടി പ്രസാദ് മിലൻ",
-  // "മണ്ടി ബാബു ജോയൽ",
-  // "ന്നൂർക്കോടൻ സോണി ഐശ്വര്യ",
-  // "കണ്ണമ്പുഴ ഷാജു ഇവാ",
-  // "കിഴക്കേകൈപ്പെട്ടിയിൽ ടോമി ജോയൽ",
-  // "കിഴക്കേകൈപ്പെട്ടിയിൽ ടോമി ജോവാൻ",
-  // "വടക്കുമ്പാടൻ ഡേവിസ് ജോസഫ്",
-  // "വെമ്പിലാൻ ജോയ് അലൻ",
-  // "വെമ്പിലാൻ ജോയ് നവ്യ",
-  // "കരേടൻ സെബാസ്റ്റ്യൻ ജോ",
-  // "ആട്ടോക്കാരൻ ജോസഫ് സോന",
-  // "ആട്ടോക്കാരൻ ജോസഫ് സ്നേഹ",
-  // "ഇയ്യനൻ ജെയ്ൻ സിസ്‌",
-  // "പ്ലാവറ വിൽസൺ ആഞ്ജലീന",
-  // "പടയാട്ടി പ്രവീൺ സാന്ത്വന",
-  // "എടാട്ടുക്കാരൻ വർഗീസ് ാബർട്ട്",
-  // "എടാട്ടുക്കാരൻ റോബർട്ട് നിർമല",
-  // "ഫുല്ലോക്കാരൻ തോമസ് മരിയ",
-  // "പുത്തൂക്കര ഫ്രാൻസിസ് ആന്റോ",
-  // "കരേടൻ തോമസ് ജിബിൻ",
-  // "കരേടൻ തോമസ് ജിതിൻ",
-  // "കരേടൻ ജിതിൻ അനു",
-  // "കരേടൻ ടോമി എബി",
-  // "ഫുല്ലേലി ജോയ് ഡോണ",
-  // "കൂനമ്മാവ് തോമസ് തുഷാര",
-  // "കൂനമ്മാവ് തോമസ് തെരേസ്",
-  // "മണ്ടി ജോഷി ആൻമരിയ",
-  // "മണ്ടി ജോഷി ആൽബിൻ",
-  // "കരേടൻ ഡേവിസ് അന്നറോസ്",
-  // "അമ്പൂക്കൻ ഷൈജു ജെറോം",
-  // "അമ്പൂക്കൻ ഷൈജു ജൂലിയറ്റ്",
-  // "പൊട്ടക്കൽ ഷാജു ആഷിക്",
-  // "പൊട്ടക്കൽ ഷാജു ആഗ്‌ന",
-  // "പറോക്കാരൻ ജോബൻ ജോയൽ",
-  // "പൊട്ടക്കൽ രാജു അനീന",
-  // "പൊട്ടക്കൽ രാജു അനഘ",
-  // "അരോത ആന്റണി റോണിൻ",
-  // "മാളിയേക്കൽ റാഫേൽ മെൽബിൻ",
-  // "മാളിയേക്കൽ ജോയ് ജിതിൻ",
-  // "കോഴിക്കാടൻ പോളി പോമി",
-  // "കോഴിക്കാടൻ പോളി ഡിലു",
-  // "നേരേവീട്ടിൽ സണ്ണി അഖിൽ",
-  // "വിതയത്തിൽ ഡെന്നി ഐറിൻ",
-  // "മാനാടൻ ജോസഫ് ലിഡിൻ",
-  // "വെമ്പിലാൻ ഷാജു അനീറ്റ",
-  // "വിതയത്തിൽ ദേവസ്സി സിന്റോ",
-  // "മണ്ടി ജോബി മാനുവൽ",
-  // "വിതയത്തിൽ സെബാസ്റ്റ്യൻ ചാക്കോച്ചൻ",
-  // "വിതയത്തിൽ സെബാസ്റ്റ്യൻ ഔസേപ്പച്ചൻ",
-  // "വിതയത്തിൽ ഔസേപ്പച്ചൻ മഞ്ജുഷ",
-  // "വിതയത്തിൽ ഡെന്നി ഡിലിയ",
-  // "വിതയത്തിൽ ഡെന്നി ഡെൽമ",
-  // "കൂനമ്മാവ് സെറിൻ എയ്ഞ്ചൽ മരിയ",
-  // "മണ്ടി ബാബു തോംസൺ",
-  // "മണ്ടി ബാബു സെബാൻ",
-  // "മണ്ടി സെബി അലൻ",
-  // "തളിയൻ ആന്റണി സിബിൻ",
-  // "അമ്പുക്കൻ ബിനോയ് ആൽവിൻ",
-  // "തെക്കൻ കുര്യാക്കോസ് നിജോ",
-  // "തെക്കൻ കുര്യാക്കോസ് മെജോ",
-  // "പുല്ലേലി ഡേവിസ് ഡാനി",
-  // "പൊട്ടക്കൽ ഡേവിസ് ദിയ",
-  // "പുല്ലേലി ഔസേപ്പ് സിജോ",
-  // "മാളിയേക്കൽ വർഗീസ് മെൽവിൻ",
-  // "മാളിയേക്കൽ വർഗീസ് മേബിൾ",
-  // "അമ്പുക്കൻ ജോയ് ജീസൻ",
-  // "പുല്ലേലി സെബി റോഷൻ",
-  // "പുല്ലേലി സെബി റോസ്മോൾ",
-  // "വിതയത്തിൽ ജോസ് ജോമോൻ",
-  // "വിതയത്തിൽ ജോമോൻ ലിബി",
-  // "ചെറ്റക്ക ആന്റണി അനീന",
-  // "അമ്പുക്കൻ തോമസ് മഞ്ജു",
-  // "ശീവേലി ഡേവിസ് ഫ്രെഡി",
-  // "ശീവേലി ഫ്രെഡി ലിനിയ",
-  // "വെമ്പിലാൻ ബൈജു ആദർശ്",
-  // "മാച്ചാമ്പിള്ളി സാജു ജോൺ പോൾ",
-  // "വെമ്പിലാൻ പൗലോസ് മരിയ",
-  // "മാച്ചാമ്പിള്ളി സാജു ലിയ റോസ്",
-  // "മുളങ്ങാടൻ ജേക്കബ് അനീഷ്",
-  // "ചാമക്കാല സാബു സിയോണ",
-  // "മഞ്ഞപ്രക്കാരൻ ആന്റണി ആതിര",
-  // "പൊട്ടക്കൽ സാബു അനൂപ്",
-  // "മഞ്ഞപ്രക്കാരൻ ടോമി റിയ",
-  // "പൊട്ടക്കൽ അനൂപ് റെയ്‌ന",
-  // "പൈനാടത്ത് നിജിത്ത് റിയ",
-  // "വടക്കേപീടിക എബിൻ അഞ്ജ",
-  // "മഞ്ഞപ്രക്കാരൻ ജിമ്മി ബ്രിട്ടോ",
-  // "വടക്കേപീടിക വിൻസെന്റ് എബിൻ",
-  // "ശീവേലി ഡേവിസ് ഫ്ളെമിൻ",
-  // "മഞ്ഞപ്രക്കാരൻ ജിമ്മി ബെനിറ്റ",
-  // "ശീവേലി മാത്യു ബെർലിൻ",
-  // "ഫുല്ലേലി സെബാസ്റ്റ്യൻ ആൽബിൻ",
-  // "കരേടൻ ടിജോ അനഘ ഗ്രേസ്",
-  // "ശീവേലി ബെർലിൻ സാന്ദ്ര",
-  // "ഫുല്ലേലി ജിനോ ഐസക്",
-  // "ശീവേലി ഫ്ളെമിൻ മരിയ",
-  // "പുതുശ്ശേരി ഡേവിഡ് അഖിൽ",
-  // "മൂലൻ ജോബി ആൽബിൻ",
-  // "മൂലൻ ജോബി അനൂപ",
-  // "കണ്ണമ്പുഴ ലാസർ അഭിലാഷ്",
-  // "ആട്ടോക്കാരൻ ജോമോൻ സാന്ത്വനമരിയ",
-  // "ആട്ടോക്കാരൻ ഡേവിസ് ഡെൽന",
-  // "മണ്ടി ജിമ്മി മെസ്സി",
-  // "കളപ്പുരക്കൽ ബിനു ഷാനു",
-  // "കളപ്പുരക്കൽ ബിനു ആകാശ്",
-  // "ഇയ്യനൻ ബിജു അന്ന",
-  // "ഇയ്യനൻ ബിജു അന്നമരിയ",
-  // "ചാലക്കൽ ഫ്രാൻസിസ് ഫെൽവിൻ",
-  // "ചാലക്കൽ ഫ്രാൻസിസ് ഫെൽജോ",
-  // "എടാട്ടുക്കാരൻ ബാബു ആൽവിൻ",
-  // "എടാട്ടുക്കാരൻ ബാബു എയ്ഞ്ചൽമരിയ",
-  // "അരോത ഷാജൻ എബിൻ",
-  // "മാച്ചാമ്പിള്ളി ജോസ് ഡെൽവിൻ",
-  // "മാച്ചാമ്പിള്ളി ജോസ് ഡെറിൻ",
-  // "മാച്ചാമ്പിള്ളി ഡെറിൻ രഞ്ജിത",
-  // "മാച്ചാമ്പിള്ളി തോമസ് ഹാബിൻ",
-  // "മാച്ചാമ്പിള്ളി തോമസ് അൽന",
-  // "വെട്ടേക്കാട്ടുക്കരയിൽ സജി സാവിയോ",
-  // "കളപ്പുരക്കൽ ജോയ് ഡേവിഡ്",
-  // "കണ്ണമ്പുഴ വർഗീസ് അജിൻ",
-  // "മഞ്ഞപ്രക്കാരൻ പൗലോസ് സെനിറ്റ",
-  // "ഫുളിക്കൽ ബാബു ഏപ്രിൽ",
-  // "ചെറുമഠത്തിൽ പ്രദീപ് ആര്യ",
-  // "പുറത്തൂർ ജോസ് ജിസ്മോൻ",
-  // "വിതയത്തിൽ ജോസ് ജോയൽ",
-  // "വിതയത്തിൽ ജോസ് ജൂവൽ",
-  // "ചിറക്കപറമ്പിൽ സെബാസ്റ്റ്യൻ ജോസഫ്",
-  // "കളപ്പുരക്കൽ പോൾ ലിബിൻ",
-  // "കണ്ണമ്പുഴ മാത്തച്ചൻ എബിൻ",
-  // "കണ്ണമ്പുഴ എബിൻ ലിയ",
-  // "മാനാടൻ ഡേവിസ് നീമ",
-  // "കളപ്പുരക്കൽ ഷിബു ആൻമരിയ",
-  // "കളപ്പുരക്കൽ ഷിബു അലീഷ",
-  // "കളപ്പുരക്കൽ ബിജു ഡോണ",
-  // "ചൊവ്വരക്കാരൻ തോമസ് ജോൺ",
-  // "വെമ്പിലാൻ ഡേവിസ് ഡിൻഷാമരിയ",
-  // "പള്ളിപ്പാടൻ ലിതിൻ ഫൗസ്റ്റീന",
-  // "വിതയത്തിൽ പൗലോസ് പ്രിൻസ്",
-  // "വിതയത്തിൽ പൗലോസ് പ്രിയ",
-  // "കണ്ണമ്പുഴ തോമസ് ഡോൺ",
-  // "ചൊവ്വരക്കാരൻ തോമസ് ജെസ്റ്റിൻ"
   "Vembilan Jose Serena",
   "Vembilan Simson Anjaly",
   "Iyyanan Jimmy Jenitta",
@@ -357,7 +228,7 @@ const hostNames = [
   "Vithayathil Denny Diliya",
   "Vithayathil Denny Delma",
   "Koonnamavu Serin Angel Mariya",
-  "Mandy Babu Thomson",
+  "Mandy Babu Tomson",
   "Mandy Babu Seban",
   "Mandy Seby Alan",
   "Thaliyan Antony Sibin",
@@ -389,7 +260,7 @@ const hostNames = [
   "Kalapurakkal Binu Antony",
   "Kalapurakkal Binu Akash",
   "Iyyanan Biju Anna",
-  "Iyyanan Biju Annat Mariya",
+  "Iyyanan Biju Anat Mariya",
   "Chalakkal Francis Felwin",
   "Chalakkal Francis Feljo",
   "Edattukaran Babu Alwin",
@@ -411,7 +282,7 @@ const hostNames = [
   "Vithayathil Jose Jewel",
   "Chirakkaparambil Sebastian Joseph",
   "Kalapurakkal Paul Libin",
-  "Kalapurakkal Lbin Liya",
+  "Kalapurakkal Paul Liya",
   "Kannampuza Mathachan Ebin",
   "Kannampuza Ebin Liya",
   "Maanadan Davis Neema",

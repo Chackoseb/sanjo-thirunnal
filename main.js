@@ -386,7 +386,7 @@ const hostNames = [
   "Attokaran Jomon Santhwanamaria",
   "Attokaran Davis Delna",
   "Mandy Jimmy Messy",
-  "Kalapurakkal Binu Shanu",
+  "Kalapurakkal Binu Antony",
   "Kalapurakkal Binu Akash",
   "Iyyanan Biju Anna",
   "Iyyanan Biju Annat Mariya",

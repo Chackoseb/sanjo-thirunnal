@@ -460,3 +460,41 @@ function renderHosts() {
   const container = document.getElementById("hosts-container");
   container.innerHTML = hosts.map((host) => createHostCard(host)).join("");
 }
+
+// Simple carousel logic for program section
+(function() {
+  const images = Array.from(document.querySelectorAll('#carousel-track .carousel-img'));
+  if (!images.length) return;
+  let current = 0;
+  let timer = null;
+  function updateCarousel() {
+    images.forEach((img, idx) => {
+      img.style.display = idx === current ? 'block' : 'none';
+    });
+  }
+  function next() {
+    current = (current + 1) % images.length;
+    updateCarousel();
+  }
+  function prev() {
+    current = (current - 1 + images.length) % images.length;
+    updateCarousel();
+  }
+  function resetTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(() => {
+      next();
+    }, 5000);
+  }
+  document.getElementById('carousel-prev').addEventListener('click', () => {
+    prev();
+    resetTimer();
+  });
+  document.getElementById('carousel-next').addEventListener('click', () => {
+    next();
+    resetTimer();
+  });
+  // Initialize
+  updateCarousel();
+  resetTimer();
+})();

@@ -15,7 +15,7 @@
 </head>
 <body class="festive-bg">
     <!-- Festive Marquee Banner -->
-    <div class="w-full bg-gradient-to-r from-pink-400 via-yellow-300 to-green-300 py-2 shadow-lg overflow-hidden relative z-50">
+    <div class="w-full bg-gradient-to-r from-pink-400 via-yellow-300 to-green-300 py-2 shadow-lg overflow-hidden fixed top-0 left-0 z-50" style="width:100vw;">
         <div class="marquee text-lg md:text-xl font-bold text-rose-800 flex items-center gap-4">
             <span>🎉</span>
             <span>തിരുനാൾ മംഗളങ്ങൾ! ഏവർക്കും സന്തോഷവും സമാധാനവും നിറഞ്ഞ തിരുനാൾ ആശംസകൾ!</span>
@@ -24,18 +24,20 @@
             <span>🌟</span>
         </div>
     </div>
-    <!-- Confetti button moved into image container below -->
+    <div style="height:56px;"></div> <!-- Spacer for fixed marquee height -->
+    <div style="position:relative;">
+        <img src="events/front.webp" alt="" class="w-full block mx-auto" style="max-width:100vw;">
+        <button id="confetti-toggle" class="absolute top-2 right-2 text-pink-700 font-bold text-xl z-50" aria-pressed="false" style="z-index:70; background:none; border:none; box-shadow:none; padding:0;">
+            <span id="confetti-toggle-icon">🎉</span>
+        </button>
+        <!-- <img src="events/page 2.webp" alt=""> -->
+    </div>
     <canvas class="confetti" id="confetti-canvas"></canvas>
-    
-    <div class="container mx-auto">
+
+    <div class="container mx-auto px-4">
         <header class="">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative">
-                <!-- Confetti button absolutely positioned in top right of image -->
-                <button id="confetti-toggle" class="absolute top-2 right-2 text-2xl focus:outline-none z-20 bg-transparent border-none p-0 m-0" aria-pressed="false" style="background:none;box-shadow:none;border:none;">
-                    <span id="confetti-toggle-icon">🎉</span>
-                    <span id="confetti-toggle-text"></span>
-                </button>
-                <img src="events/front.webp" alt="" class="w-full" />
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- <img src="events/front.webp" alt=""> -->
             </div>
         </header>
         <!-- Festive Umbrella Divider -->
@@ -79,7 +81,7 @@
 
         <!-- Program Carousel Section -->
         <section class="max-w-2xl mx-auto my-8">
-            <h2 class="text-xl md:text-2xl font-bold text-center text-yellow-800 mb-4">തിരുനാൾ കാര്യപരിപാടികൾ</h2>
+            <h2 class="text-2xl md:text-2xl font-bold text-center text-yellow-800 mb-4">തിരുനാൾ കാര്യപരിപാടികൾ</h2>
             <div class="relative">
                 <button id="carousel-prev" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 rounded-full shadow p-2 z-10 hover:bg-yellow-100" aria-label="Previous">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
